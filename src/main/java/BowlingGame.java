@@ -4,10 +4,15 @@ public class BowlingGame {
     public int calculateTotalScore(int[] scores) {
         int totalScore = 0;
         int index = 0;
+        int lastFrame = 9;
         for (int frame = 0; frame < 10; ++frame) {
             int scoreOfSingleFrame = scores[index] + scores[index + 1];
-            if ( scoreOfSingleFrame == 10) {
-                totalScore += FULL_SCORE + scores[index + 2];
+            if (frame == lastFrame && isStrike(index, scores)) {
+                totalScore += FULL_SCORE + scores[index + 1] + scores[index + 2];
+            } else if (isStrike(index, scores)) {
+                totalScore += FULL_SCORE + scores[index + 2] + scores[index + 3];
+            } else if (isSpare(index, scores)){
+                totalScore += scoreOfSingleFrame + scores[index + 2];
             } else {
                 totalScore += scoreOfSingleFrame;
             }
@@ -15,5 +20,13 @@ public class BowlingGame {
         }
 
         return totalScore;
+    }
+
+    private boolean isSpare(int index, int[] scores) {
+        return scores[index] + scores[index + 1] == 10;
+    }
+
+    private boolean isStrike(int index, int[] scores) {
+        return scores[index] == 10;
     }
 }

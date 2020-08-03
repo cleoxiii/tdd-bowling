@@ -52,4 +52,24 @@ public class BowlingGameTest {
 
         assertEquals(18, totalScore);
     }
+
+    @Test
+    void should_calculate_total_score_when_exist_strike_normally_in_first_nine_frames() {
+        int[] scores = {10, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        BowlingGame game = new BowlingGame();
+
+        int totalScore = game.calculateTotalScore(scores);
+
+        assertEquals(16, totalScore);
+    }
+
+    @Test
+    void should_calculate_total_score_when_exist_strike_in_last_frame() {
+        int[] scores = {1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 10, 1, 2};
+        BowlingGame game = new BowlingGame();
+
+        int totalScore = game.calculateTotalScore(scores);
+
+        assertEquals(40, totalScore);
+    }
 }
